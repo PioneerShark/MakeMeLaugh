@@ -8,33 +8,31 @@ using UnityEngine.InputSystem;
 public class playerController : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] float health, speed;
+    [SerializeField] float health, speed, jumpPower;
+    [SerializeField] Rigidbody2D rb;
+
     [HideInInspector]
-    PlayerMovement playerInput;
-    InputAction movement1;
-    Transform transform;
+    float horizontal;
     private void Awake()
     {
-        playerInput = new PlayerMovement();
-        movement1 = playerInput.Movement1.LeftRight;
     }
     void Start()
     {
-        playerInput.Movement1.Enable();
-                
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
     }
     private void OnEnable()
     {
     }
 
-    private void Movement1(InputValue value)
+    public void Move(InputAction.CallbackContext context)
     {
-        transform.Translate(value.Get<Vector2>(), 0);
+        Debug.Log("moving");
+        horizontal = context.ReadValue<Vector2>().x;
     }
 }
