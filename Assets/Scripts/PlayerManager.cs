@@ -11,6 +11,11 @@ class ActionHandler
         playerController controller = player.GetComponent<playerController>();
         controller.Jump(value);
     }
+    public void Fire(GameObject player, InputAction.CallbackContext value)
+    {
+        playerController controller = player.GetComponent<playerController>();
+        controller.Fire(value);
+    }
 
     public void UpdateMoveVector(GameObject player, Vector2 moveVector2)
     {
@@ -42,6 +47,8 @@ public class PlayerManager : MonoBehaviour
         multiplayerInput.Enable();
         multiplayerInput.Player1.Jump.performed += value => actionHandler.Jump(player1, value); // The idea is to pass the player1 object
         multiplayerInput.Player2.Jump.performed += value => actionHandler.Jump(player2, value); // The idea is to pass the player2 object
+        multiplayerInput.Player1.Fire.performed += value => actionHandler.Fire(player1, value); // The idea is to pass the player1 object
+        multiplayerInput.Player2.Fire.performed += value => actionHandler.Fire(player2, value); // The idea is to pass the player2 object
     }
 
     private void OnDisable()

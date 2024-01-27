@@ -65,7 +65,7 @@ public class playerController : MonoBehaviour
     {
         horizontal = context.x;
     }
-    public void Weapon(InputAction.CallbackContext context)
+    public void Fire(InputAction.CallbackContext context)
     {
         hand.Fire();
     }
@@ -93,9 +93,12 @@ public class playerController : MonoBehaviour
             if (transform.localScale.x != wallJumpingDirection)
             {
                 isFacingRight = !isFacingRight;
-                Vector3 localScale = transform.localScale;
+                transform.Rotate(0, 180, 0);
+                //transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y + 180, transform.rotation.z, transform.rotation.w);
+                /*Vector3 localScale = transform.localScale;
                 localScale.x *= -1f;
-                transform.localScale = localScale;
+                transform.localScale = localScale;*/
+
             }
 
             Invoke(nameof(StopWallJumping), wallJumpingDuration);
@@ -142,9 +145,11 @@ public class playerController : MonoBehaviour
         if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
         {
             isFacingRight = !isFacingRight;
-            Vector3 localScale = transform.localScale;
+            //transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y+180, transform.rotation.z, transform.rotation.w);
+            transform.Rotate(0, 180, 0);
+            /*Vector3 localScale = transform.localScale;
             localScale.x *= -1f;
-            transform.localScale = localScale;
+            transform.localScale = localScale;*/
         }
     }
     public void TakeDamage(float damage)

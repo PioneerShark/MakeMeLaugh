@@ -6,7 +6,7 @@ using UnityEngine;
 public class BaseProjectile : MonoBehaviour
 {
     [HideInInspector] Rigidbody2D rb;
-    [SerializeField] float speed, damage;
+    [SerializeField] float speed, damage, health;
     void Start()
     {
         if (!(TryGetComponent<Rigidbody2D>(out rb))) {
@@ -25,7 +25,11 @@ public class BaseProjectile : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(speed, rb.velocity.y);
+        
+    }
+    private void Update()
+    {
+        transform.Translate(rb.velocity.x + speed*Time.deltaTime, rb.velocity.y, 0);
     }
 
     private void OnDestroy()
