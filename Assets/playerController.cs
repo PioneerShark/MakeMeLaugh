@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class playerController : MonoBehaviour
 {
     [Header("Player")]
-    [SerializeField] private float speed;
+    [SerializeField] private float speed, health;
                      private float horizontal;
                      public Rigidbody2D rb;
                      private bool isFacingRight = true;
@@ -133,6 +134,14 @@ public class playerController : MonoBehaviour
             Vector3 localScale = transform.localScale;
             localScale.x *= -1f;
             transform.localScale = localScale;
+        }
+    }
+    public void TakeDamage(float damage)
+    {
+        health-= damage;
+        if (health <= 0f)
+        {
+            Destroy(this);
         }
     }
 
