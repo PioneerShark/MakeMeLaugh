@@ -55,13 +55,8 @@ public class playerController : MonoBehaviour
     {
         if (!isWallJumping) { rb.velocity = new Vector2(horizontal * speed, rb.velocity.y); }
     }
-<<<<<<< HEAD
 
     public void Move(Vector2 context)
-=======
-    
-    public void Move(InputAction.CallbackContext context)
->>>>>>> miko-branch
     {
         horizontal = context.x;
     }
