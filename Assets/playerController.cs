@@ -37,10 +37,10 @@ public class playerController : MonoBehaviour
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private Vector2 wallCheckSize;
 
-    bool m_started;
+    //bool m_started;
     void Start()
     {
-        m_started = true;
+        //m_started = true;
     }
 
     void Update()
