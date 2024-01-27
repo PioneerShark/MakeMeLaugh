@@ -10,11 +10,12 @@ public class playerController : MonoBehaviour
     [SerializeField] private float speed, health;
                      private float horizontal;
                      public Rigidbody2D rb;
+                     public BoxCollider2D bc;
                      private bool isFacingRight = true;
 
     [Header("Jumping")]
     [SerializeField] private float jumpPower;
-                     private bool isGrounded;
+                     //private bool isGrounded;
 
     [Header("Wall Movement")]
     [SerializeField] private float wallJumpingTime = 0.5f;                      // I don't understand the use case of this, when it's 0 wall jumping does not happen, but anything above that it will work
@@ -24,25 +25,26 @@ public class playerController : MonoBehaviour
                      private float wallJumpingDirection;                        // Current direction towards wall
                      private float wallJumpingCounter;                          // How much time left before jumping again
 
-                     private bool isWalled;                                     // If touching wall
+                     //private bool isWalled;                                     // If touching wall
                      private bool isWallSliding;                                // If currently wall sliding
     [SerializeField] private float wallSlidingSpeed = 1.5f;                     // Speed of wall
 
     [Header("Ground Check")]
-    [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Vector2 groundCheckSize;
 
     [Header("Wall Check")]
-    [SerializeField] private Transform wallCheck;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private Vector2 wallCheckSize;
 
+    bool m_started;
+    void Start()
+    {
+        m_started = true;
+    }
+
     void Update()
     {
-        isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, groundLayer);
-        isWalled = Physics2D.OverlapBox(wallCheck.position, wallCheckSize, 0, wallLayer);
-
         //WallJump();
         WallSlide();
     
@@ -53,16 +55,22 @@ public class playerController : MonoBehaviour
     {
         if (!isWallJumping) { rb.velocity = new Vector2(horizontal * speed, rb.velocity.y); }
     }
+<<<<<<< HEAD
 
     public void Move(Vector2 context)
+=======
+    
+    public void Move(InputAction.CallbackContext context)
+>>>>>>> miko-branch
     {
         horizontal = context.x;
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.performed && isGrounded)
+        if (context.performed && isGrounded())
         {
+            Debug.Log("Jump?");
             rb.velocity = new Vector2(rb.velocity.x, jumpPower);
         }
         else if (context.canceled && rb.velocity.y > 0f)
@@ -72,7 +80,7 @@ public class playerController : MonoBehaviour
 
         WallJump();
 
-        if (context.performed && !isGrounded && wallJumpingCounter > 0f)
+        if (context.performed && !isGrounded() && wallJumpingCounter > 0f)
         {
             isWallJumping = true;
             rb.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
@@ -93,7 +101,7 @@ public class playerController : MonoBehaviour
 
     private void WallSlide()
     {
-        if (!isGrounded && isWalled && horizontal != 0f)
+        if (!isGrounded() && isWalled() && horizontal != 0f)
         {
             isWallSliding = true;
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue)); 
@@ -145,4 +153,74 @@ public class playerController : MonoBehaviour
         }
     }
 
+    private void drawRayCast(RaycastHit2D rc, float extraHeight)
+    {
+        Color rayColor;
+        if (rc.collider != null)
+        {
+            rayColor = Color.green;
+        }
+        else
+        {
+            rayColor = Color.red;
+        }
+        Debug.DrawRay(bc.bounds.center + new Vector3(bc.bounds.extents.x, 0), Vector2.down * (bc.bounds.extents.y + extraHeight), rayColor);
+        Debug.DrawRay(bc.bounds.center - new Vector3(bc.bounds.extents.x, 0), Vector2.down * (bc.bounds.extents.y + extraHeight), rayColor);
+        Debug.DrawRay(bc.bounds.center - new Vector3(bc.bounds.extents.x, bc.bounds.extents.y + extraHeight), Vector2.right * (bc.bounds.extents.x * 2f), rayColor);
+    }
+
+    private bool isGrounded()
+    {
+        float extraHeight = 0.25f;
+        RaycastHit2D raycastHit = Physics2D.BoxCast(bc.bounds.center, bc.bounds.size, 0f, Vector2.down, extraHeight, groundLayer);
+
+        Color rayColor;
+        if (raycastHit.collider != null)
+        {
+            rayColor = Color.green;
+        }
+        else
+        {
+            rayColor = Color.red;
+        }
+
+        Debug.DrawRay(bc.bounds.center + new Vector3(bc.bounds.extents.x, 0), Vector2.down * (bc.bounds.extents.y + extraHeight), rayColor);
+        Debug.DrawRay(bc.bounds.center - new Vector3(bc.bounds.extents.x, 0), Vector2.down * (bc.bounds.extents.y + extraHeight), rayColor);
+        Debug.DrawRay(bc.bounds.center - new Vector3(bc.bounds.extents.x, bc.bounds.extents.y + extraHeight), Vector2.right * (bc.bounds.extents.x * 2f), rayColor);
+
+        return raycastHit.collider != null;
+    }
+
+    private bool isWalled()
+    {
+        float extraHeight = 0.25f; // Change 
+        RaycastHit2D raycastHit;
+        if (isFacingRight) { raycastHit = Physics2D.BoxCast(bc.bounds.center, bc.bounds.size, 0f, Vector2.right, extraHeight, wallLayer); }
+        else               { raycastHit = Physics2D.BoxCast(bc.bounds.center, bc.bounds.size, 0f, Vector2.left, extraHeight, wallLayer); }
+        
+        Color rayColor;
+        if (raycastHit.collider != null)
+        {
+            rayColor = Color.green;
+        }
+        else
+        {
+            rayColor = Color.red;
+        }
+
+        if (isFacingRight) 
+        { 
+            Debug.DrawRay(bc.bounds.center + new Vector3(0, bc.bounds.extents.y), Vector2.right * (bc.bounds.extents.x + extraHeight), rayColor);
+            Debug.DrawRay(bc.bounds.center + new Vector3(0, -bc.bounds.extents.y), Vector2.right * (bc.bounds.extents.x + extraHeight), rayColor);
+            Debug.DrawRay(bc.bounds.center + new Vector3(bc.bounds.extents.x + extraHeight, bc.bounds.extents.y), Vector2.down * (bc.bounds.extents.y * 2f), rayColor);
+        }
+        else
+        {
+            Debug.DrawRay(bc.bounds.center + new Vector3(0, bc.bounds.extents.y), Vector2.left * (bc.bounds.extents.x + extraHeight), rayColor);
+            Debug.DrawRay(bc.bounds.center + new Vector3(0, -bc.bounds.extents.y), Vector2.left * (bc.bounds.extents.x + extraHeight), rayColor);
+            Debug.DrawRay(bc.bounds.center + new Vector3(-bc.bounds.extents.x - extraHeight, bc.bounds.extents.y), Vector2.down * (bc.bounds.extents.y * 2f), rayColor);
+        }
+
+        return raycastHit.collider != null;
+    }
 }
