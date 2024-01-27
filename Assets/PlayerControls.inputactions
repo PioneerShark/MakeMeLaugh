@@ -2,7 +2,7 @@
     "name": "PlayerControls",
     "maps": [
         {
-            "name": "Player",
+            "name": "Default",
             "id": "d73d168b-732f-4f1d-9b53-49b3636a8a3a",
             "actions": [
                 {
@@ -45,22 +45,22 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "17abb20c-3acd-4853-b299-1f90e6805de2",
-                    "path": "<Keyboard>/space",
+                    "id": "0bbdb359-6f79-41b1-88b8-9b98348fd8e7",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "Controller",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "0bbdb359-6f79-41b1-88b8-9b98348fd8e7",
-                    "path": "<Gamepad>/buttonSouth",
+                    "id": "ad328d2f-fbc5-49ec-80f3-aa0df1f88108",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Controller",
+                    "groups": "Keyboard",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -77,8 +77,30 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "beada458-e4a2-442b-9377-7c5c30e32039",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Horizontal",
+                    "id": "3bcd208d-7d96-4ccb-b27b-a4cbdfaee228",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "left",
-                    "id": "8b249895-a84e-483e-87bb-06c997f1721b",
+                    "id": "ff24f7b8-daa3-4ad2-8013-69edd41e5b7a",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -89,7 +111,7 @@
                 },
                 {
                     "name": "right",
-                    "id": "f6f4efd4-5161-4204-ad5b-8b0f0fd1ab3d",
+                    "id": "e0a35065-002f-4737-99f7-1b2d399a1e86",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -97,6 +119,7 @@
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
+<<<<<<< HEAD
                 },
                 {
                     "name": "",
@@ -152,33 +175,13 @@
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f7a9a0b3-0ab8-4a6c-a35a-e63b2374ec5a",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Weapon",
-                    "isComposite": false,
-                    "isPartOfComposite": false
+=======
+>>>>>>> miko-branch
                 }
             ]
         }
     ],
     "controlSchemes": [
-        {
-            "name": "Keyboard",
-            "bindingGroup": "Keyboard",
-            "devices": [
-                {
-                    "devicePath": "<Keyboard>",
-                    "isOptional": false,
-                    "isOR": false
-                }
-            ]
-        },
         {
             "name": "Controller",
             "bindingGroup": "Controller",
@@ -191,12 +194,21 @@
             ]
         },
         {
+<<<<<<< HEAD
             "name": "Keyboard2",
             "bindingGroup": "Keyboard2",
             "devices": [
                 {
                     "devicePath": "<Keyboard>",
                     "isOptional": false,
+=======
+            "name": "Keyboard",
+            "bindingGroup": "Keyboard",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": true,
+>>>>>>> miko-branch
                     "isOR": false
                 }
             ]
