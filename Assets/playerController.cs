@@ -29,12 +29,10 @@ public class playerController : MonoBehaviour
     [SerializeField] private float wallSlidingSpeed = 1.5f;                     // Speed of wall
 
     [Header("Ground Check")]
-    [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Vector2 groundCheckSize;
 
     [Header("Wall Check")]
-    [SerializeField] private Transform wallCheck;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private Vector2 wallCheckSize;
 
@@ -46,9 +44,6 @@ public class playerController : MonoBehaviour
 
     void Update()
     {
-        //isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, groundLayer);
-        //isWalled = Physics2D.OverlapBox(wallCheck.position, wallCheckSize, 0, wallLayer);
-
         //WallJump();
         WallSlide();
     
@@ -59,7 +54,7 @@ public class playerController : MonoBehaviour
     {
         if (!isWallJumping) { rb.velocity = new Vector2(horizontal * speed, rb.velocity.y); }
     }
-
+    
     public void Move(InputAction.CallbackContext context)
     {
         horizontal = context.ReadValue<Vector2>().x;
