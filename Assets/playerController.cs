@@ -11,6 +11,7 @@ public class playerController : MonoBehaviour
                      private float horizontal;
                      public Rigidbody2D rb;
                      private bool isFacingRight = true;
+                     Hands hand;
 
     [Header("Jumping")]
     [SerializeField] private float jumpPower;
@@ -37,7 +38,10 @@ public class playerController : MonoBehaviour
     [SerializeField] private Transform wallCheck;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private Vector2 wallCheckSize;
-
+    private void Awake()
+    {
+        hand = GetComponent<Hands>();
+    }
     void Update()
     {
         isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, groundLayer);
@@ -58,7 +62,10 @@ public class playerController : MonoBehaviour
     {
         horizontal = context.ReadValue<Vector2>().x;
     }
-
+    public void Weapon(InputAction.CallbackContext context)
+    {
+        hand.Fire();
+    }
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.performed && isGrounded)
@@ -141,7 +148,7 @@ public class playerController : MonoBehaviour
         health-= damage;
         if (health <= 0f)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
 
