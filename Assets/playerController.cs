@@ -54,9 +54,9 @@ public class playerController : MonoBehaviour
         if (!isWallJumping) { rb.velocity = new Vector2(horizontal * speed, rb.velocity.y); }
     }
 
-    public void Move(InputAction.CallbackContext context)
+    public void Move(Vector2 context)
     {
-        horizontal = context.ReadValue<Vector2>().x;
+        horizontal = context.x;
     }
 
     public void Jump(InputAction.CallbackContext context)

@@ -56,5 +56,8 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "MakeMeLaugh.sln"
+    "dotnet.defaultSolution": "MakeMeLaugh.sln",
+    "cSpell.words": [
+        "Rigidbody"
+    ]
 }
