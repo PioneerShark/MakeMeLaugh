@@ -1199,8 +1199,8 @@ MonoBehaviour:
   rb: {fileID: 991675574}
   staticObject: 0
   health: 10
-  mass: 2
   destructible: 1
+  mass: 2
 --- !u!1 &1006808535
 GameObject:
   m_ObjectHideFlags: 0
@@ -1731,6 +1731,37 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &1170643427
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1170643428}
+  m_Layer: 0
+  m_Name: Hands
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1170643428
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170643427}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0.1, z: 0}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1167961838}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1235635230
 GameObject:
   m_ObjectHideFlags: 0
@@ -1915,6 +1946,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5203517211132395859, guid: cb4692f149cea564aa186a2a1f153497, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1905753182}
+    - targetCorrespondingSourceObject: {fileID: 5203517211132395859, guid: cb4692f149cea564aa186a2a1f153497, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1170643428}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4409611241249864124, guid: cb4692f149cea564aa186a2a1f153497, type: 3}
       insertIndex: -1
@@ -2016,6 +2050,7 @@ GameObject:
   - component: {fileID: 1592894448}
   - component: {fileID: 1592894451}
   - component: {fileID: 1592894450}
+  - component: {fileID: 1592894452}
   m_Layer: 0
   m_Name: Crate
   m_TagString: Untagged
@@ -2084,7 +2119,7 @@ Transform:
   m_GameObject: {fileID: 1592894447}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.82, y: 5.52, z: -0.016441181}
+  m_LocalPosition: {x: 12.58, y: 5.23, z: -0.016441181}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2162,6 +2197,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1592894452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592894447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08dc8a2c9c926db468eb5a108c35ccba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  staticObject: 0
+  health: 10
+  destructible: 1
+  mass: 0
 --- !u!1 &1727260090
 GameObject:
   m_ObjectHideFlags: 0

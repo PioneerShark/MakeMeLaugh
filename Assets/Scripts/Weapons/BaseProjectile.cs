@@ -38,9 +38,9 @@ public class BaseProjectile : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        BaseEntity col;
+        if (collision.gameObject.TryGetComponent(out col))
         {
-            playerController col = collision.gameObject.GetComponent<playerController>();
             col.TakeDamage(damage);
         }
         Destroy(this.gameObject);

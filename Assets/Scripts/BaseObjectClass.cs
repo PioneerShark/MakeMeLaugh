@@ -4,13 +4,9 @@ using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class BaseObjectClass : MonoBehaviour
+public class BaseObjectClass : BaseEntity
 {
-    [SerializeField] Rigidbody2D rb;
-    [SerializeField] bool staticObject;
-    [SerializeField] float health;
     [SerializeField] float mass;
-    [SerializeField] bool destructible;
     private void Awake()
     {
         //static or not
@@ -21,17 +17,6 @@ public class BaseObjectClass : MonoBehaviour
     private void Update()
     {
 
-    }
-    private void TakeDamage(float damage)
-    {
-        health -= damage;
-        if (health <= 0)
-        {
-            Destroy();
-        }
-    }
-    public virtual void Destroy() {
-        if (destructible) this.Destroy();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

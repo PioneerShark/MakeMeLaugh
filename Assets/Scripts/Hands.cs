@@ -11,7 +11,10 @@ public class Hands : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        activeWeapon = Instantiate(objectHeld, hands.transform.position, hands.transform.rotation ,hands.transform);
+        if (objectHeld) 
+        { 
+            activeWeapon = Instantiate(objectHeld, hands.transform.position, hands.transform.rotation ,hands.transform);
+        }
     }
     public void Pickup(GameObject objectPickedUp)
     {
@@ -19,6 +22,9 @@ public class Hands : MonoBehaviour
     }
     public void Fire()
     {
-        activeWeapon.GetComponent<RocketLaunch>().Attack();
+        if (activeWeapon) 
+        { 
+            activeWeapon.GetComponent<RocketLaunch>().Attack();
+        }
     }
 }

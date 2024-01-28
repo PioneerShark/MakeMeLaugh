@@ -4,14 +4,13 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class playerController : MonoBehaviour
+public class playerController : BaseEntity
 {
     public Animator animator;
 
     [Header("Player")]
-    [SerializeField] private float speed, health;
+    [SerializeField] private float speed;
                      private float horizontal;
-                     public Rigidbody2D rb;
                      public BoxCollider2D bc;
                      private bool isFacingRight = true;
                      Hands hand;
@@ -155,14 +154,6 @@ public class playerController : MonoBehaviour
             /*Vector3 localScale = transform.localScale;
             localScale.x *= -1f;
             transform.localScale = localScale;*/
-        }
-    }
-    public void TakeDamage(float damage)
-    {
-        health-= damage;
-        if (health <= 0f)
-        {
-            Destroy(this.gameObject);
         }
     }
 
