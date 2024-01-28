@@ -1047,7 +1047,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2190,7 +2190,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ostList:
   - {fileID: 8300000, guid: 4f066b20290722249b1ddfe36385f672, type: 3}
-  sfxList: []
+  sfxList:
+  - {fileID: 8300000, guid: 0b16a6b9b223f714081ccfdab85b5f3a, type: 3}
+  - {fileID: 8300000, guid: 70bd527bb8b458243910085d4e9edfba, type: 3}
   ostSource: {fileID: 1167064032}
   sfxSource: {fileID: 1100429363}
 --- !u!4 &2019702571
