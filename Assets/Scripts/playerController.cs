@@ -72,13 +72,26 @@ public class playerController : BaseEntity
     }
     public void Fire(InputAction.CallbackContext context)
     {
-        hand.Fire();
+        //hand.Fire();
+        if (hand.Fire())
+        {
+            AudioManager.Instance.PlaySFX("FITH");
+        }
+    }
+    public void Equip(GameObject equipObject)
+    {
+        hand.Equip(equipObject);
+    }
+    public void Unequip()
+    {
+        hand.Unequip();
     }
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.performed && isGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+            AudioManager.Instance.PlaySFX("Cheat-o");
         }
         else if (context.canceled && rb.velocity.y > 0f)
         {
@@ -126,6 +139,7 @@ public class playerController : BaseEntity
     {
         if (isWallSliding)
         {
+            AudioManager.Instance.PlaySFX("Cheat-o");
             isWallJumping = false;
             wallJumpingDirection = -transform.localScale.x;
             wallJumpingCounter = wallJumpingTime;

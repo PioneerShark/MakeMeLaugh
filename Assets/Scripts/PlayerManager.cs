@@ -11,8 +11,7 @@ class ActionHandler
         if (player)
         {
             playerController controller = player.GetComponent<playerController>();
-            controller.Jump(value);
-            AudioManager.Instance.PlaySFX("Cheat-o");        
+            controller.Jump(value);       
         }
     }
     public void Fire(GameObject player, InputAction.CallbackContext value)
@@ -21,7 +20,7 @@ class ActionHandler
         {        
             playerController controller = player.GetComponent<playerController>();
             controller.Fire(value);
-            AudioManager.Instance.PlaySFX("FITH"); 
+            
         }
     }
 

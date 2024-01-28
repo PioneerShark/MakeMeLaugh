@@ -284,7 +284,7 @@ PrefabInstance:
     - target: {fileID: 1675551867349696484, guid: 71a524f6d12d40b4990a5c3c8be36030, type: 3}
       propertyPath: objectHeld
       value: 
-      objectReference: {fileID: 3743227400739984752, guid: 7aa44de52be12724dbba798214341672, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 2533239762996012083, guid: 71a524f6d12d40b4990a5c3c8be36030, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -662,7 +662,7 @@ PrefabInstance:
     - target: {fileID: 1675551867349696484, guid: 71a524f6d12d40b4990a5c3c8be36030, type: 3}
       propertyPath: objectHeld
       value: 
-      objectReference: {fileID: 3743227400739984752, guid: 7aa44de52be12724dbba798214341672, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 2533239762996012083, guid: 71a524f6d12d40b4990a5c3c8be36030, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -4420,6 +4420,10 @@ PrefabInstance:
       propertyPath: gameOverCanvas
       value: 
       objectReference: {fileID: 2115977997}
+    - target: {fileID: 3534658791937114537, guid: 28a1b53f191563b439c7812fbab6f5fb, type: 3}
+      propertyPath: startingWeapon
+      value: 
+      objectReference: {fileID: 3743227400739984752, guid: 7aa44de52be12724dbba798214341672, type: 3}
     - target: {fileID: 7940950902640324849, guid: 28a1b53f191563b439c7812fbab6f5fb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.763067

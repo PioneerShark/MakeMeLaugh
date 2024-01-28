@@ -16,15 +16,32 @@ public class Hands : MonoBehaviour
             activeWeapon = Instantiate(objectHeld, hands.transform.position, hands.transform.rotation ,hands.transform);
         }
     }
-    public void Pickup(GameObject objectPickedUp)
-    {
+    public void Equip(GameObject newEquip) {
+        BaseRangedWeapon useless;
+        if (newEquip.TryGetComponent<BaseRangedWeapon>(out useless) && activeWeapon == null) 
+        {
+            objectHeld = newEquip;
+            activeWeapon = Instantiate(objectHeld, hands.transform.position, hands.transform.rotation, hands.transform);
+        }
         
     }
-    public void Fire()
+    public void Unequip()
+    {
+        if(activeWeapon != null)
+        {
+            activeWeapon = null;
+            Destroy(hands.transform.GetChild(0).gameObject);
+            objectHeld = null;
+        }
+        
+    }
+    public bool Fire()
     {
         if (activeWeapon) 
         { 
             activeWeapon.GetComponent<RocketLaunch>().Attack();
+            return true;
         }
+        return false;
     }
 }

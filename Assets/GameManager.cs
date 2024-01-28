@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     // Players
     public GameObject player1;
     public GameObject player2;
+    [SerializeField] GameObject startingWeapon;
 
     // Game state
     public gameState currentGameState;
@@ -58,6 +59,7 @@ public class GameManager : MonoBehaviour
         playerController1 = player1.GetComponent<playerController>();
         playerController2 = player2.GetComponent<playerController>();
 
+        AudioManager.Instance.PlayOST("Clown's Respite");
         settingsApplied = false;
         currentGameState = gameState.lobby;
     }
@@ -104,11 +106,14 @@ public class GameManager : MonoBehaviour
     {
         if (currentGameState == gameState.lobby)
         {
+            AudioManager.Instance.PlayOST("Give Them a Show");
             settingsApplied = false;
             playerController1.health = 100;
             playerController2.health = 100;
             gameCam.transform.position = gameCamPos;
             gameCam.transform.localScale = gameCamScale;
+            playerController1.Equip(startingWeapon);
+            playerController2.Equip(startingWeapon);
             gameCam.GetComponent<Camera>().orthographicSize = gameCamSize;
             lobbyCanvas.enabled = false;
             currentGameState = gameState.starting;
@@ -119,6 +124,9 @@ public class GameManager : MonoBehaviour
     {
         if (currentGameState == gameState.gameEnd)
         {
+            AudioManager.Instance.PlayOST("Clown's Respite");
+            playerController1.Unequip();
+            playerController2.Unequip();
             settingsApplied = false;
             gameCam.transform.position = lobbyCamPos;
             gameCam.transform.localScale = lobbyCamScale;
