@@ -54,7 +54,8 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        PlayOST("Give Them a Show");
+        //PlayOST("Give Them a Show");
+        PlayOST("Clown's Respite");
         PlaySFX("Cheat-o");
     }
 }
