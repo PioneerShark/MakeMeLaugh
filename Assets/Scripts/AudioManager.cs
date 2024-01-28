@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+    // Hmmm idk about this practice but okay
+    public static AudioManager Instance;
+
     public AudioClip[] ostList, sfxList;
     [SerializeField] private AudioSource ostSource, sfxSource;
 
@@ -17,6 +20,10 @@ public class AudioManager : MonoBehaviour
             ostSource.loop = true;
             ostSource.Play();
         }
+        else
+        {
+            Debug.LogError("OST not found!");
+        }
     }
 
     public void PlaySFX(string name)
@@ -24,13 +31,30 @@ public class AudioManager : MonoBehaviour
         AudioClip sfx = Array.Find(sfxList, x => x.name == name);
         if (sfx != null)
         {
-            sfxSource.clip = sfx;
-            sfxSource.Play();
+            sfxSource.PlayOneShot(sfx);
+        }
+        else
+        {
+            Debug.LogError("SFX not found!");
         }
     }
 
     private void Awake() 
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Start()
+    {
         PlayOST("Give Them a Show");
+        PlaySFX("Cheat-o");
     }
 }

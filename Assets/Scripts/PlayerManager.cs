@@ -12,12 +12,17 @@ class ActionHandler
         {
             playerController controller = player.GetComponent<playerController>();
             controller.Jump(value);
+            AudioManager.Instance.PlaySFX("Cheat-o");        
         }
     }
     public void Fire(GameObject player, InputAction.CallbackContext value)
     {
-        playerController controller = player.GetComponent<playerController>();
-        controller.Fire(value);
+        if (player)
+        {        
+            playerController controller = player.GetComponent<playerController>();
+            controller.Fire(value);
+            AudioManager.Instance.PlaySFX("FITH"); 
+        }
     }
 
     public void UpdateMoveVector(GameObject player, Vector2 moveVector2)
