@@ -1451,6 +1451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ostList:
   - {fileID: 8300000, guid: 4f066b20290722249b1ddfe36385f672, type: 3}
+  - {fileID: 8300000, guid: 32585496bedbe884283ad363dfd3b083, type: 3}
   sfxList:
   - {fileID: 8300000, guid: 0b16a6b9b223f714081ccfdab85b5f3a, type: 3}
   - {fileID: 8300000, guid: 70bd527bb8b458243910085d4e9edfba, type: 3}
