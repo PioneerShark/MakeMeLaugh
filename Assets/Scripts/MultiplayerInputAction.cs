@@ -44,6 +44,15 @@ public partial class @MultiplayerInputAction: IInputActionCollection2, IDisposab
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""904e8419-9c41-4794-8394-f24f161d7315"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -101,6 +110,28 @@ public partial class @MultiplayerInputAction: IInputActionCollection2, IDisposab
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2123cfe2-3e00-49f1-aafe-d4f0ba57904d"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d8fb7a29-5546-4e09-a209-60fef75b38d3"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -121,6 +152,15 @@ public partial class @MultiplayerInputAction: IInputActionCollection2, IDisposab
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""05c2aa71-7268-46bf-b8f5-9c9becfd03ce"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""2c7b8c78-397d-40ed-a29f-94770ed52cb2"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -182,6 +222,28 @@ public partial class @MultiplayerInputAction: IInputActionCollection2, IDisposab
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7425853b-4956-413f-a916-440716bd1792"",
+                    ""path"": ""<Keyboard>/numpad0"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3c127ea6-8c46-4723-9651-b7e67ae679e3"",
+                    ""path"": ""<Keyboard>/0"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -192,10 +254,12 @@ public partial class @MultiplayerInputAction: IInputActionCollection2, IDisposab
         m_Player1 = asset.FindActionMap("Player1", throwIfNotFound: true);
         m_Player1_Movement = m_Player1.FindAction("Movement", throwIfNotFound: true);
         m_Player1_Jump = m_Player1.FindAction("Jump", throwIfNotFound: true);
+        m_Player1_Fire = m_Player1.FindAction("Fire", throwIfNotFound: true);
         // Player2
         m_Player2 = asset.FindActionMap("Player2", throwIfNotFound: true);
         m_Player2_Movement = m_Player2.FindAction("Movement", throwIfNotFound: true);
         m_Player2_Jump = m_Player2.FindAction("Jump", throwIfNotFound: true);
+        m_Player2_Fire = m_Player2.FindAction("Fire", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -259,12 +323,14 @@ public partial class @MultiplayerInputAction: IInputActionCollection2, IDisposab
     private List<IPlayer1Actions> m_Player1ActionsCallbackInterfaces = new List<IPlayer1Actions>();
     private readonly InputAction m_Player1_Movement;
     private readonly InputAction m_Player1_Jump;
+    private readonly InputAction m_Player1_Fire;
     public struct Player1Actions
     {
         private @MultiplayerInputAction m_Wrapper;
         public Player1Actions(@MultiplayerInputAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player1_Movement;
         public InputAction @Jump => m_Wrapper.m_Player1_Jump;
+        public InputAction @Fire => m_Wrapper.m_Player1_Fire;
         public InputActionMap Get() { return m_Wrapper.m_Player1; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -280,6 +346,9 @@ public partial class @MultiplayerInputAction: IInputActionCollection2, IDisposab
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @Fire.started += instance.OnFire;
+            @Fire.performed += instance.OnFire;
+            @Fire.canceled += instance.OnFire;
         }
 
         private void UnregisterCallbacks(IPlayer1Actions instance)
@@ -290,6 +359,9 @@ public partial class @MultiplayerInputAction: IInputActionCollection2, IDisposab
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @Fire.started -= instance.OnFire;
+            @Fire.performed -= instance.OnFire;
+            @Fire.canceled -= instance.OnFire;
         }
 
         public void RemoveCallbacks(IPlayer1Actions instance)
@@ -313,12 +385,14 @@ public partial class @MultiplayerInputAction: IInputActionCollection2, IDisposab
     private List<IPlayer2Actions> m_Player2ActionsCallbackInterfaces = new List<IPlayer2Actions>();
     private readonly InputAction m_Player2_Movement;
     private readonly InputAction m_Player2_Jump;
+    private readonly InputAction m_Player2_Fire;
     public struct Player2Actions
     {
         private @MultiplayerInputAction m_Wrapper;
         public Player2Actions(@MultiplayerInputAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player2_Movement;
         public InputAction @Jump => m_Wrapper.m_Player2_Jump;
+        public InputAction @Fire => m_Wrapper.m_Player2_Fire;
         public InputActionMap Get() { return m_Wrapper.m_Player2; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -334,6 +408,9 @@ public partial class @MultiplayerInputAction: IInputActionCollection2, IDisposab
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @Fire.started += instance.OnFire;
+            @Fire.performed += instance.OnFire;
+            @Fire.canceled += instance.OnFire;
         }
 
         private void UnregisterCallbacks(IPlayer2Actions instance)
@@ -344,6 +421,9 @@ public partial class @MultiplayerInputAction: IInputActionCollection2, IDisposab
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @Fire.started -= instance.OnFire;
+            @Fire.performed -= instance.OnFire;
+            @Fire.canceled -= instance.OnFire;
         }
 
         public void RemoveCallbacks(IPlayer2Actions instance)
@@ -365,10 +445,12 @@ public partial class @MultiplayerInputAction: IInputActionCollection2, IDisposab
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
     }
     public interface IPlayer2Actions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
     }
 }

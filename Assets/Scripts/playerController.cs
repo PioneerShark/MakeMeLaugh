@@ -14,6 +14,7 @@ public class playerController : MonoBehaviour
                      public Rigidbody2D rb;
                      public BoxCollider2D bc;
                      private bool isFacingRight = true;
+                     Hands hand;
 
     [Header("Jumping")]
     [SerializeField] private float jumpPower;
@@ -38,6 +39,10 @@ public class playerController : MonoBehaviour
     [Header("Wall Check")]
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private Vector2 wallCheckSize;
+    private void Awake()
+    {
+        hand = GetComponent<Hands>();
+    }
 
     //bool m_started;
     void Start()
@@ -66,7 +71,10 @@ public class playerController : MonoBehaviour
     {
         horizontal = context.x;
     }
-
+    public void Fire(InputAction.CallbackContext context)
+    {
+        hand.Fire();
+    }
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.performed && isGrounded())
@@ -90,9 +98,12 @@ public class playerController : MonoBehaviour
             if (transform.localScale.x != wallJumpingDirection)
             {
                 isFacingRight = !isFacingRight;
-                Vector3 localScale = transform.localScale;
+                transform.Rotate(0, 180, 0);
+                //transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y + 180, transform.rotation.z, transform.rotation.w);
+                /*Vector3 localScale = transform.localScale;
                 localScale.x *= -1f;
-                transform.localScale = localScale;
+                transform.localScale = localScale;*/
+
             }
 
             Invoke(nameof(StopWallJumping), wallJumpingDuration);
@@ -139,9 +150,11 @@ public class playerController : MonoBehaviour
         if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
         {
             isFacingRight = !isFacingRight;
-            Vector3 localScale = transform.localScale;
+            //transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y+180, transform.rotation.z, transform.rotation.w);
+            transform.Rotate(0, 180, 0);
+            /*Vector3 localScale = transform.localScale;
             localScale.x *= -1f;
-            transform.localScale = localScale;
+            transform.localScale = localScale;*/
         }
     }
     public void TakeDamage(float damage)
@@ -149,7 +162,7 @@ public class playerController : MonoBehaviour
         health-= damage;
         if (health <= 0f)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
 
