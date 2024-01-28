@@ -15,32 +15,49 @@ public class GameManager : MonoBehaviour
     public Canvas inProgressCanvas;
     public Canvas gameOverCanvas;
 
+    public GameObject player1Text;
+    public GameObject player2Text;
+
     // Players
     public GameObject player1;
     public GameObject player2;
-
-    // Player variables
-    public float player1_health;
-    public float player2_health;
 
     // Game state
     public gameState currentGameState;
 
     private bool settingsApplied;
 
+    // Cameras
+    public GameObject gameCam;
+
     // Positions
-    private Vector2 player1_lobby;
-    private Vector2 player2_lobby;
-    private Vector2 player1_map1;
-    private Vector2 player2_map1;
+    private Vector2 player1_lobby = new Vector2(25, -7);
+    private Vector2 player2_lobby = new Vector2(34, -7);
+    private Vector2 player1_map1 = new Vector2(-16, -3);
+    private Vector2 player2_map1 = new Vector2(16, -3);
+
+    private Vector3 lobbyCamPos = new Vector3(30f, -5f, -10f);
+    private Vector3 lobbyCamScale = new Vector3(1f, 1f, 1f);
+    private float lobbyCamSize = 5;
+
+    private Vector3 gameCamPos = new Vector3(0, 0, -10f);
+    private Vector3 gameCamScale = new Vector3(1.925f, 1f, 1f);
+    private float gameCamSize = 10;
 
     // References to the scripts
-    //private PlayerManager playerManager;
-    private playerController playerController;
+    private playerController playerController1;
+    private playerController playerController2;
 
     // Start is called before the first frame update
     void Start()
     {
+        gameCam.transform.position = lobbyCamPos;
+        gameCam.transform.localScale = lobbyCamScale;
+        gameCam.GetComponent<Camera>().orthographicSize = lobbyCamSize;
+
+        playerController1 = player1.GetComponent<playerController>();
+        playerController2 = player2.GetComponent<playerController>();
+
         settingsApplied = false;
         currentGameState = gameState.lobby;
     }
@@ -52,7 +69,6 @@ public class GameManager : MonoBehaviour
         {
             player1.transform.position = player1_lobby;
             player2.transform.position = player2_lobby;
-            lobbyCanvas.enabled = true;
             settingsApplied = true;
         }
 
@@ -60,13 +76,21 @@ public class GameManager : MonoBehaviour
         {
             player1.transform.position = player1_map1;
             player2.transform.position = player2_map1;
-            lobbyCanvas.enabled = false;
             settingsApplied = true;
             currentGameState = gameState.inProgress;
         }
 
-        if ((player1_health < 0 || player2_health < 0) && currentGameState == gameState.inProgress)
+        if ((playerController1.health < 0) && currentGameState == gameState.inProgress)
         {
+            player1Text.transform.gameObject.SetActive(false);
+            player2Text.transform.gameObject.SetActive(true);
+            currentGameState = gameState.gameEnd;
+        }
+
+        if ((playerController2.health < 0) && currentGameState == gameState.inProgress)
+        {
+            player1Text.transform.gameObject.SetActive(true);
+            player2Text.transform.gameObject.SetActive(false);
             currentGameState = gameState.gameEnd;
         }
 
@@ -81,6 +105,12 @@ public class GameManager : MonoBehaviour
         if (currentGameState == gameState.lobby)
         {
             settingsApplied = false;
+            playerController1.health = 100;
+            playerController2.health = 100;
+            gameCam.transform.position = gameCamPos;
+            gameCam.transform.localScale = gameCamScale;
+            gameCam.GetComponent<Camera>().orthographicSize = gameCamSize;
+            lobbyCanvas.enabled = false;
             currentGameState = gameState.starting;
         }
     }
@@ -90,6 +120,11 @@ public class GameManager : MonoBehaviour
         if (currentGameState == gameState.gameEnd)
         {
             settingsApplied = false;
+            gameCam.transform.position = lobbyCamPos;
+            gameCam.transform.localScale = lobbyCamScale;
+            gameCam.GetComponent<Camera>().orthographicSize = lobbyCamSize;
+            gameOverCanvas.enabled = false;
+            lobbyCanvas.enabled = true;
             currentGameState = gameState.lobby;
         }
     }
