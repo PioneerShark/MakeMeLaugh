@@ -8,14 +8,20 @@ class ActionHandler
 {
     public void Jump(GameObject player, InputAction.CallbackContext value)
     {
-        playerController controller = player.GetComponent<playerController>();
-        controller.Jump(value);
+        if (player)
+        {
+            playerController controller = player.GetComponent<playerController>();
+            controller.Jump(value);
+        }
     }
 
     public void UpdateMoveVector(GameObject player, Vector2 moveVector2)
     {
-        playerController controller = player.GetComponent<playerController>();
-        controller.Move(moveVector2);
+        if (player)
+        {
+            playerController controller = player.GetComponent<playerController>();
+            controller.Move(moveVector2);
+        }
     }
 }
 
@@ -51,11 +57,8 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        // pass player1 and player2 to collisionDetector
         actionHandler.UpdateMoveVector(player1, multiplayerInput.Player1.Movement.ReadValue<Vector2>());
         actionHandler.UpdateMoveVector(player2, multiplayerInput.Player2.Movement.ReadValue<Vector2>());
-        //Debug.Log("Player 1: " + multiplayerInput.Player1.Movement.ReadValue<Vector2>());
-        //Debug.Log("Player 2: " + multiplayerInput.Player2.Movement.ReadValue<Vector2>());
     }
 }
 

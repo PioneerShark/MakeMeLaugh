@@ -52,9 +52,9 @@ public class playerController : MonoBehaviour
     
         if (!isWallJumping) { Flip(); }
         
-        animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
-        animator.SetBool("IsFacingRight",  isFacingRight);
-        animator.SetBool("IsGrounded", isGrounded());
+        //animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
+        //animator.SetBool("IsFacingRight",  isFacingRight);
+        //animator.SetBool("IsGrounded", isGrounded());
     }
 
     void FixedUpdate()
