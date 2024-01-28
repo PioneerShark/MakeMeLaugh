@@ -19,6 +19,16 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void PlaySFX(string name)
+    {
+        AudioClip sfx = Array.Find(sfxList, x => x.name == name);
+        if (sfx != null)
+        {
+            sfxSource.clip = sfx;
+            sfxSource.Play();
+        }
+    }
+
     private void Awake() 
     {
         PlayOST("Give Them a Show");
