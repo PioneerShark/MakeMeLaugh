@@ -119,6 +119,64 @@
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
+<<<<<<< HEAD
+                },
+                {
+                    "name": "",
+                    "id": "beada458-e4a2-442b-9377-7c5c30e32039",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Horizontal",
+                    "id": "3c37e011-9d5c-42a0-b929-fd05746f291b",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "left",
+                    "id": "888b15d2-9db3-4704-bfd1-91b6dbfa2e9f",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "df31c2ac-1cb1-47f4-87bf-52b1422f85a3",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "985d95d6-d306-4b82-8a60-1ac3d651caa0",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard2",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+=======
+>>>>>>> miko-branch
                 }
             ]
         }
@@ -136,12 +194,21 @@
             ]
         },
         {
+<<<<<<< HEAD
+            "name": "Keyboard2",
+            "bindingGroup": "Keyboard2",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+=======
             "name": "Keyboard",
             "bindingGroup": "Keyboard",
             "devices": [
                 {
                     "devicePath": "<Keyboard>",
                     "isOptional": true,
+>>>>>>> miko-branch
                     "isOR": false
                 }
             ]

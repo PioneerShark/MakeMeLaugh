@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class playerController : MonoBehaviour
+public class playerController : BaseEntity
 {
     public Animator animator;
 
     [Header("Player")]
     [SerializeField] private float speed;
                      private float horizontal;
-                     public Rigidbody2D rb;
                      public BoxCollider2D bc;
                      private bool isFacingRight = true;
+                     Hands hand;
 
     [Header("Jumping")]
     [SerializeField] private float jumpPower;
@@ -37,11 +38,15 @@ public class playerController : MonoBehaviour
     [Header("Wall Check")]
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private Vector2 wallCheckSize;
+    private void Awake()
+    {
+        hand = GetComponent<Hands>();
+    }
 
-    bool m_started;
+    //bool m_started;
     void Start()
     {
-        m_started = true;
+        //m_started = true;
     }
 
     void Update()
@@ -51,21 +56,24 @@ public class playerController : MonoBehaviour
     
         if (!isWallJumping) { Flip(); }
         
-        animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
-        animator.SetBool("IsFacingRight",  isFacingRight);
-        animator.SetBool("IsGrounded", isGrounded());
+        //animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
+        //animator.SetBool("IsFacingRight",  isFacingRight);
+        //animator.SetBool("IsGrounded", isGrounded());
     }
 
     void FixedUpdate()
     {
         if (!isWallJumping) { rb.velocity = new Vector2(horizontal * speed, rb.velocity.y); }
     }
-    
-    public void Move(InputAction.CallbackContext context)
-    {
-        horizontal = context.ReadValue<Vector2>().x;
-    }
 
+    public void Move(Vector2 context)
+    {
+        horizontal = context.x;
+    }
+    public void Fire(InputAction.CallbackContext context)
+    {
+        hand.Fire();
+    }
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.performed && isGrounded())
@@ -89,9 +97,12 @@ public class playerController : MonoBehaviour
             if (transform.localScale.x != wallJumpingDirection)
             {
                 isFacingRight = !isFacingRight;
-                Vector3 localScale = transform.localScale;
+                transform.Rotate(0, 180, 0);
+                //transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y + 180, transform.rotation.z, transform.rotation.w);
+                /*Vector3 localScale = transform.localScale;
                 localScale.x *= -1f;
-                transform.localScale = localScale;
+                transform.localScale = localScale;*/
+
             }
 
             Invoke(nameof(StopWallJumping), wallJumpingDuration);
@@ -138,9 +149,11 @@ public class playerController : MonoBehaviour
         if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
         {
             isFacingRight = !isFacingRight;
-            Vector3 localScale = transform.localScale;
+            //transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y+180, transform.rotation.z, transform.rotation.w);
+            transform.Rotate(0, 180, 0);
+            /*Vector3 localScale = transform.localScale;
             localScale.x *= -1f;
-            transform.localScale = localScale;
+            transform.localScale = localScale;*/
         }
     }
 
