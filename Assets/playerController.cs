@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class playerController : MonoBehaviour
 {
+    public Animator animator;
+
     [Header("Player")]
     [SerializeField] private float speed;
                      private float horizontal;
@@ -48,6 +50,10 @@ public class playerController : MonoBehaviour
         WallSlide();
     
         if (!isWallJumping) { Flip(); }
+        
+        animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
+        animator.SetBool("IsFacingRight",  isFacingRight);
+        animator.SetBool("IsGrounded", isGrounded());
     }
 
     void FixedUpdate()
@@ -64,7 +70,6 @@ public class playerController : MonoBehaviour
     {
         if (context.performed && isGrounded())
         {
-            Debug.Log("Jump?");
             rb.velocity = new Vector2(rb.velocity.x, jumpPower);
         }
         else if (context.canceled && rb.velocity.y > 0f)
@@ -179,7 +184,7 @@ public class playerController : MonoBehaviour
 
     private bool isWalled()
     {
-        float extraHeight = 0.25f; // Change 
+        float extraHeight = 0.25f;
         RaycastHit2D raycastHit;
         if (isFacingRight) { raycastHit = Physics2D.BoxCast(bc.bounds.center, bc.bounds.size, 0f, Vector2.right, extraHeight, wallLayer); }
         else               { raycastHit = Physics2D.BoxCast(bc.bounds.center, bc.bounds.size, 0f, Vector2.left, extraHeight, wallLayer); }
